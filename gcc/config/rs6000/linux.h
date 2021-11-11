@@ -29,8 +29,12 @@
 
 #ifdef SINGLE_LIBC
 #define OPTION_GLIBC  (DEFAULT_LIBC == LIBC_GLIBC)
+#undef OPTION_MUSL
+#define OPTION_MUSL   (DEFAULT_LIBC == LIBC_MUSL)
 #else
 #define OPTION_GLIBC  (linux_libc == LIBC_GLIBC)
+#undef OPTION_MUSL
+#define OPTION_MUSL   (linux_libc == LIBC_MUSL)
 #endif
 
 /* glibc has float and long double forms of math functions.  */
@@ -104,7 +108,7 @@
 /* We are 32-bit all the time, so optimize a little.  */
 #undef TARGET_64BIT
 #define TARGET_64BIT 0
- 
+
 /* We don't need to generate entries in .fixup, except when
    -mrelocatable or -mrelocatable-lib is given.  */
 #undef RELOCATABLE_NEEDS_FIXUP

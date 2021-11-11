@@ -1185,3 +1185,10 @@ i[34567]86-*-linux* | x86_64-*-linux*)
 	tm_file="${tm_file} i386/value-unwind.h"
 	;;
 esac
+
+case ${host} in
+*-*-musl*)
+  # The gthr weak references are unsafe with static linking
+  tmake_file="$tmake_file t-gthr-noweak"
+  ;;
+esac

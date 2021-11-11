@@ -63,8 +63,12 @@ along with GCC; see the file COPYING3.  If not see
 
 #ifdef SINGLE_LIBC
 #define OPTION_GLIBC  (DEFAULT_LIBC == LIBC_GLIBC)
+#undef OPTION_MUSL
+#define OPTION_MUSL   (DEFAULT_LIBC == LIBC_MUSL)
 #else
 #define OPTION_GLIBC  (linux_libc == LIBC_GLIBC)
+#undef OPTION_MUSL
+#define OPTION_MUSL   (DEFAULT_LIBC == LIBC_MUSL)
 #endif
 
 /* Determine whether the entire c99 runtime is present in the

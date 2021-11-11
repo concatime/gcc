@@ -28,6 +28,12 @@ along with GCC; see the file COPYING3.  If not see
 #define GLIBC_DYNAMIC_LINKERN32 "/lib32/ld.so.1"
 #define UCLIBC_DYNAMIC_LINKERN32 "/lib32/ld-uClibc.so.0"
 #define BIONIC_DYNAMIC_LINKERN32 "/system/bin/linker32"
+#undef MUSL_DYNAMIC_LINKER32
+#define MUSL_DYNAMIC_LINKER32 "/lib/ld-musl-mips%{EL:el}%{msoft-float:-sf}.so.1"
+#undef MUSL_DYNAMIC_LINKER64
+#define MUSL_DYNAMIC_LINKER64 "/lib/ld-musl-mips64%{EL:el}%{msoft-float:-sf}.so.1"
+#define MUSL_DYNAMIC_LINKERN32 "/lib/ld-musl-mipsn32%{EL:el}%{msoft-float:-sf}.so.1"
 #define GNU_USER_DYNAMIC_LINKERN32 \
   CHOOSE_DYNAMIC_LINKER (GLIBC_DYNAMIC_LINKERN32, UCLIBC_DYNAMIC_LINKERN32, \
-			 BIONIC_DYNAMIC_LINKERN32)
+			 BIONIC_DYNAMIC_LINKERN32, MUSL_DYNAMIC_LINKERN32)
+

@@ -522,7 +522,7 @@ case ${target} in
 esac
 
 # Common C libraries.
-tm_defines="$tm_defines LIBC_GLIBC=1 LIBC_UCLIBC=2 LIBC_BIONIC=3"
+tm_defines="$tm_defines LIBC_GLIBC=1 LIBC_UCLIBC=2 LIBC_BIONIC=3 LIBC_MUSL=4"
 
 # Common parts for widely ported systems.
 case ${target} in
@@ -624,6 +624,9 @@ case ${target} in
       ;;
     *-*-*uclibc*)
       tm_defines="$tm_defines DEFAULT_LIBC=LIBC_UCLIBC"
+      ;;
+    *-*-*musl*)
+      tm_defines="$tm_defines DEFAULT_LIBC=LIBC_MUSL"
       ;;
     *)
       tm_defines="$tm_defines DEFAULT_LIBC=LIBC_GLIBC"
@@ -3429,7 +3432,7 @@ case "${target}" in
 		esac
 		;;
 
-	sh[123456ble]-*-* | sh-*-*)
+	sh[123456ble]*-*-* | sh-*-*)
 		supported_defaults="cpu"
 		case "`echo $with_cpu | tr ABCDEFGHIJKLMNOPQRSTUVWXYZ_ abcdefghijklmnopqrstuvwxyz- | sed s/sh/m/`" in
 		"" | m1 | m2 | m2e | m3 | m3e | m4 | m4-single | m4-single-only | m4-nofpu )

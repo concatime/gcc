@@ -32,5 +32,8 @@
     %{mcall-linux: --oformat elf32-powerpc} \
   }}}}"
 
+#undef MUSL_DYNAMIC_LINKER_E
+#define MUSL_DYNAMIC_LINKER_E ENDIAN_SELECT("","le","le")
+
 #undef	MULTILIB_DEFAULTS
 #define	MULTILIB_DEFAULTS { "mlittle", "mcall-sysv" }

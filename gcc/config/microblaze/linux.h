@@ -20,10 +20,20 @@
    <http://www.gnu.org/licenses/>.  */
 
 
-#define DYNAMIC_LINKER "/lib/ld.so.1"
+#define GLIBC_DYNAMIC_LINKER "/lib/ld.so.1"
+
+#if TARGET_BIG_ENDIAN_DEFAULT == 0 /* LE */
+#define MUSL_DYNAMIC_LINKER_E "%{mbig-endian:;:el}"
+#else
+#define MUSL_DYNAMIC_LINKER_E "%{mlittle-endian:el}"
+#endif
+
+#undef MUSL_DYNAMIC_LINKER
+#define MUSL_DYNAMIC_LINKER "/lib/ld-musl-microblaze" MUSL_DYNAMIC_LINKER_E ".so.1"
+
 #undef  SUBTARGET_EXTRA_SPECS
 #define SUBTARGET_EXTRA_SPECS \
-  { "dynamic_linker", DYNAMIC_LINKER }
+  { "dynamic_linker", GNU_USER_DYNAMIC_LINKER }
 
 #undef LINK_SPEC
 #define LINK_SPEC "%{shared:-shared} \

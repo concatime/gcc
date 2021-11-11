@@ -99,7 +99,7 @@ void foo (void);
 	      [Define to 1 if the target supports #pragma weak])
   fi
   case "$host" in
-    *-*-darwin* | *-*-hpux* | *-*-cygwin* | *-*-mingw* | alpha*-dec-osf* )
+    *-*-darwin* | *-*-hpux* | *-*-cygwin* | *-*-mingw* | *-*-musl* | alpha*-dec-osf* )
       AC_DEFINE(GTHREAD_USE_WEAK, 0,
 		[Define to 0 if the target shouldn't use #pragma weak])
       ;;
@@ -146,7 +146,7 @@ AC_DEFUN([LIBGFOR_CHECK_CRLF], [
                   libgfor_cv_have_crlf, [
   AC_RUN_IFELSE([AC_LANG_SOURCE([[
 /* This test program should exit with status 0 if system uses a CRLF as
-   line terminator, and status 1 otherwise.  
+   line terminator, and status 1 otherwise.
    Since it is used to check for mingw systems, and should return 0 in any
    other case, in case of a failure we will not use CRLF.  */
 #include <sys/stat.h>
@@ -167,9 +167,9 @@ int main ()
     exit(1);
   if (write (fd, "\n", 1) < 0)
     perror ("write");
-  
+
   close (fd);
-  
+
   if ((fd = open ("foo", O_RDONLY | O_BINARY, S_IRWXU)) < 0)
     exit(1);
   bytes = read (fd, buff, 5);
@@ -200,7 +200,7 @@ AC_DEFUN([LIBGFOR_CHECK_WORKING_STAT], [
 #include <unistd.h>
 
 int main ()
-{ 
+{
   FILE *f, *g;
   struct stat st1, st2;
 
@@ -308,7 +308,7 @@ AC_DEFUN([LIBGFOR_CHECK_FLOAT128], [
     AC_DEFINE(HAVE_FLOAT128, 1, [Define if have a usable __float128 type.])
 
     dnl Check whether -Wl,--as-needed is supported
-    dnl 
+    dnl
     dnl Turn warnings into error to avoid testsuite breakage.  So enable
     dnl AC_LANG_WERROR, but there's currently (autoconf 2.64) no way to turn
     dnl it off again.  As a workaround, save and restore werror flag like
